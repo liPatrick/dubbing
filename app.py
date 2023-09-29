@@ -1,9 +1,10 @@
 # Core
-from flask import Flask, request
+from flask import Flask, request, send_file
 
 # Repositories
 from src.repositories.users import UserRepository
 from dubbing_engine.entry import dub_video_entry
+from flask_cors import CORS
 
 
 
@@ -15,6 +16,7 @@ import boto3
 # Config App
 load_dotenv()
 app = Flask(__name__)
+CORS(app)
 
 
 
@@ -37,26 +39,29 @@ hardcoded_video_link = "https://www.youtube.com/watch?v=wKw1tpN7NVE&ab_channel=L
 another_hardcoded_link = "https://www.youtube.com/watch?v=BeLIisX9n0U&ab_channel=CarsahhBJJRolls"
 video_link_3 = "https://www.youtube.com/shorts/ZTg0tPtNc7o"
 
+
 # Routes
 @app.route("/", methods=["GET"])
 def hello_word():
 
+    return "Hello World"
+
     return dub_video_entry(video_link_3)
 
 
-
-
-    return 'Hello World'
-
-@app.route("/video", methods=["POST"])
+@app.route("/dub", methods=["POST"])
 def dub_video(): 
-
     json = request.get_json()
     video_link = json["video_link"]
+    if len(video_link) == 0:
+        return "error"
+    #return "success"
+    return dub_video_entry(video_link)
 
-    #dub_video_entry
+@app.route("/video", methods=["GET"])
+def get_video(): 
 
-    return ''
+    return send_file("data/final_video.mp4", mimetype="video/mp4")
 
 
 
