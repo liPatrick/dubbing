@@ -18,6 +18,7 @@ services:
     environment:
       - FLASK_APP=app.py
       - FLASK_ENV=development
+      - REPLICATE_API_TOKEN=${REPLICATE_API_TOKEN}
     volumes:
       - "./:/app"
     ports: 

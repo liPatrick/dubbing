@@ -11,11 +11,11 @@ from dubbing_engine.entry import dub_video_entry
 from dotenv import load_dotenv
 import os
 import boto3
-from dotenv import load_dotenv
 
 # Config App
 load_dotenv()
 app = Flask(__name__)
+
 
 
 # # Initialize the S3 client
@@ -35,12 +35,13 @@ app = Flask(__name__)
 
 hardcoded_video_link = "https://www.youtube.com/watch?v=wKw1tpN7NVE&ab_channel=LexFridman"
 another_hardcoded_link = "https://www.youtube.com/watch?v=BeLIisX9n0U&ab_channel=CarsahhBJJRolls"
+video_link_3 = "https://www.youtube.com/shorts/ZTg0tPtNc7o"
 
 # Routes
 @app.route("/", methods=["GET"])
 def hello_word():
 
-    dub_video_entry(hardcoded_video_link)
+    return dub_video_entry(video_link_3)
 
 
 
