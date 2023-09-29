@@ -1,9 +1,14 @@
-# syntax==docker/dockerfile:1
 
 FROM python:3.8-slim-buster
 
+# Install FFmpeg
+RUN apt update && apt install -y ffmpeg && rm -rf /var/lib/apt/lists/*
+
 RUN mkdir /app
 WORKDIR /app
+
+# Create the data directory
+RUN mkdir /app/data
 
 ENV FLASK_APP run.py
 
